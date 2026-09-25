@@ -120,7 +120,7 @@ def generate_snowflake_id(
         print(f"node_id must be in [0, {NODE_ID_MAX}]")
         return None
     if not (0 <= sequence_id <= SEQUENCE_ID_MAX):
-        print(f"sequence_id must be in [0, {SEQUENCE_ID_MAX}")
+        print(f"sequence_id must be in [0, {SEQUENCE_ID_MAX}]")
         return None
     timestamp = read_current_millis(epoch_ms)
     if not (0 <= timestamp <= TIMESTAMP_MS_MAX):
