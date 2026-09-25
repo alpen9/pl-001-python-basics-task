@@ -15,7 +15,7 @@ Each packed field can be read back on its own with :func:`decode_timestamp_ms`,
 
 import time
 
-from .constants import (
+from constants import (
     EPOCH_MS_DEFAULT,
     NODE_ID_DEFAULT,
     NODE_ID_MAX,
@@ -117,16 +117,17 @@ def generate_snowflake_id(
     """
     # TODO: реализуйте функцию
     if not (0 <= sequence_id <= SEQUENCE_ID_MAX):
-        print(f"sequence_id must be >= 0 and <= {SEQUENCE_ID_MAX}")
+        print(f"sequence_id must be in >= 0 and <= {SEQUENCE_ID_MAX}")
         return None
     if not (0 <= node_id <= NODE_ID_MAX):
-        print(f"node_id must be >= 0 and <= {NODE_ID_MAX}")
+        print(f"node_id must be in >= 0 and <= {NODE_ID_MAX}")
         return None
     timestamp = read_current_millis(epoch_ms)
     if not (0 <= timestamp <= TIMESTAMP_MS_MAX):
-        print(f"timestamp must be >= 0 and <= {TIMESTAMP_MS_MAX}")
+        print(f"overflows")
         return None
     node_res = node_id << NODE_ID_SHIFT
     timestamp_res = timestamp << TIMESTAMP_SHIFT
     result = timestamp_res | node_res | sequence_id
     return result
+print(generate_snowflake_id(0, -1))
