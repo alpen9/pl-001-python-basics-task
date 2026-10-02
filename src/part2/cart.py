@@ -23,8 +23,15 @@ from .storage import (
 type CartLine = tuple[int, int]
 
 # TODO: задайте позиции полей внутри кортежа CartLine
-LINE_PRODUCT_ID_INDEX: Final = 0
-LINE_QUANTITY_INDEX: Final = 1
+LINE_PRODUCT_ID_INDEX: Final = 1
+LINE_QUANTITY_INDEX: Final = 0
+
+
+def make_cart(product_id: int, quantity: int) -> CartLine:  # переставлять
+    fields = [None] * 2
+    fields[LINE_PRODUCT_ID_INDEX] = product_id
+    fields[LINE_QUANTITY_INDEX] = quantity
+    return tuple(fields)
 
 
 def find_cart_line(cart: list[CartLine], product_id: int) -> CartLine | None:
@@ -79,10 +86,10 @@ def add_to_cart(
         )
         for line in cart:
             if line[LINE_PRODUCT_ID_INDEX] == product_id:
-                new_line = (product_id, line[LINE_QUANTITY_INDEX] + quantity)
+                new_line = make_cart(product_id, line[LINE_QUANTITY_INDEX] + quantity)
                 cart[cart.index(line)] = new_line
                 return new_line
-        new_line = (product_id, quantity)
+        new_line = make_cart(product_id, quantity)
         cart.append(new_line)
         return new_line
     return None
@@ -142,7 +149,7 @@ def remove_from_cart(
     new_quantity = line[LINE_QUANTITY_INDEX] - quantity
     if new_quantity == 0:
         cart.remove(line)
-        return (product_id, 0)
-    new_line = (product_id, new_quantity)
+        return make_cart(product_id, 0)
+    new_line = make_cart(product_id, new_quantity)
     cart[cart.index(line)] = new_line
     return new_line

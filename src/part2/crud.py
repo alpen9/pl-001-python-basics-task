@@ -16,11 +16,27 @@ from decimal import Decimal
 
 from .storage import (
     NAME_INDEX,
+    PRICE_INDEX,
     PRODUCT_ID_INDEX,
     PRODUCT_ID_MIN,
+    QUANTITY_INDEX,
     Product,
 )
 from .utils import normalize_price
+
+
+def make(  # чтобы можно было переставлять
+    product_id: int,
+    name: str,
+    price: Decimal,
+    quantity: int,
+) -> Product:
+    fields = [None] * 4
+    fields[PRODUCT_ID_INDEX] = product_id
+    fields[NAME_INDEX] = name
+    fields[PRICE_INDEX] = price
+    fields[QUANTITY_INDEX] = quantity
+    return tuple(fields)
 
 
 def generate_product_id(storage: list[Product]) -> int:
@@ -69,7 +85,7 @@ def create_product(
             return None
     product_id = generate_product_id(storage)
     normalized_price = normalize_price(price)
-    storage.append((product_id, name, normalized_price, quantity))
+    storage.append(make(product_id, name, normalized_price, quantity))
     return product_id
 
 
@@ -119,10 +135,11 @@ def update_product(
     # TODO: реализуйте функцию
     name, price, quantity = fields
     price = normalize_price(price)
-    for product in storage:
+    for i in range(len(storage)):
+        product = storage[i]
         if product[PRODUCT_ID_INDEX] == product_id:
-            updated_product = (product_id, name, price, quantity)
-            storage[storage.index(product)] = updated_product
+            updated_product = make(product_id, name, price, quantity)
+            storage[i] = updated_product
             return updated_product
     print(f"no product with id {product_id}")
     return None
