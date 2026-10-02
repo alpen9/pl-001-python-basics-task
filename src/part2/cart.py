@@ -9,7 +9,7 @@ Like the CRUD layer, the failure path never raises -- the operation prints
 an explanatory message to stdout and returns ``None``.
 """
 
-from typing import Final
+from typing import Final, cast
 
 from .crud import read_product, update_product
 from .storage import (
@@ -28,10 +28,10 @@ LINE_QUANTITY_INDEX: Final = 1
 
 
 def make_cart(product_id: int, quantity: int) -> CartLine:  # переставлять
-    fields = [None] * 2
+    fields: list[int] = [0] * 2
     fields[LINE_PRODUCT_ID_INDEX] = product_id
     fields[LINE_QUANTITY_INDEX] = quantity
-    return tuple(fields)
+    return cast(CartLine, tuple(fields))
 
 
 def find_cart_line(cart: list[CartLine], product_id: int) -> CartLine | None:

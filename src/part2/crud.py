@@ -13,6 +13,7 @@ is already taken.
 """
 
 from decimal import Decimal
+from typing import cast
 
 from .storage import (
     NAME_INDEX,
@@ -31,12 +32,12 @@ def make(  # чтобы можно было переставлять
     price: Decimal,
     quantity: int,
 ) -> Product:
-    fields = [None] * 4
+    fields: list[int | str | Decimal] = [0] * 4
     fields[PRODUCT_ID_INDEX] = product_id
     fields[NAME_INDEX] = name
     fields[PRICE_INDEX] = price
     fields[QUANTITY_INDEX] = quantity
-    return tuple(fields)
+    return cast(Product, tuple(fields))
 
 
 def generate_product_id(storage: list[Product]) -> int:
