@@ -23,8 +23,8 @@ from .storage import (
 type CartLine = tuple[int, int]
 
 # TODO: задайте позиции полей внутри кортежа CartLine
-LINE_PRODUCT_ID_INDEX: Final = 1
-LINE_QUANTITY_INDEX: Final = 0
+LINE_PRODUCT_ID_INDEX: Final = 0
+LINE_QUANTITY_INDEX: Final = 1
 
 
 def make_cart(product_id: int, quantity: int) -> CartLine:  # переставлять
