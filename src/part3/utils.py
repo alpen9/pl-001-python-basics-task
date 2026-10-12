@@ -70,11 +70,11 @@ def rows_separator(widths: list[int]) -> str:
 def formatted_row(cells: list[str], widths: list[int]) -> str:
     res = []
     for i in range(len(cells)):
-        res.append(cells[i].ljust(widths[i])) # дополнение спраыва пробелами
+        res.append(cells[i].ljust(widths[i]))  # дополнение спраыва пробелами
     return "| " + " | ".join(res) + " |"
 
 
-def column_width(rows: list[list[str]]) -> list[int]: # поиск самой длинной ячейки
+def column_width(rows: list[list[str]]) -> list[int]:  # поиск самой длинной ячейки
     widths = []
     column_count = len(rows[0])
     for j in range(column_count):

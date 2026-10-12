@@ -42,6 +42,7 @@ def generate_product_id(storage: list[Product]) -> int:
         max_id = max(max_id, product[PRODUCT_ID_INDEX])
     return max_id + 1
 
+
 def create_product(
     storage: list[Product], fields: tuple[str, Decimal, int]
 ) -> int | None:
