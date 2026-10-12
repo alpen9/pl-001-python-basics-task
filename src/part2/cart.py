@@ -11,8 +11,8 @@ an explanatory message to stdout and returns ``None``.
 
 from typing import Final
 
-from .crud import read_product, update_product  # noqa: F401
-from .storage import (  # noqa: F401
+from .crud import read_product, update_product
+from .storage import (
     NAME_INDEX,
     PRICE_INDEX,
     QUANTITY_INDEX,
